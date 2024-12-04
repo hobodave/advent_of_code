@@ -1,0 +1,4 @@
+clang
+-isystem/Library/Developer/CommandLineTools/usr/include/c++/v1
+-I/usr/local/include
+%cpp -std=c++20
