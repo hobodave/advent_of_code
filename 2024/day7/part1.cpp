@@ -3,22 +3,22 @@
 using namespace std;
 
 bool test(long target, const vector<long> &nums, size_t index, long current) {
+  if (current > target) {
+    return false;
+  }
+
   if (index == nums.size() - 1) {
     return current == target;
   }
 
   // Try addition
-  if (index + 1 < nums.size()) {
-    if (test(target, nums, index + 1, current + nums[index + 1])) {
-      return true;
-    }
+  if (test(target, nums, index + 1, current + nums[index + 1])) {
+    return true;
   }
 
   // Try multiplication
-  if (index + 1 < nums.size()) {
-    if (test(target, nums, index + 1, current * nums[index + 1])) {
-      return true;
-    }
+  if (test(target, nums, index + 1, current * nums[index + 1])) {
+    return true;
   }
 
   return false;

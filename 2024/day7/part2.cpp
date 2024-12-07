@@ -5,30 +5,28 @@ using namespace std;
 int numDigits(long n) { return floor(log10(n)) + 1; }
 
 bool test(long target, const vector<long> &nums, size_t index, long current) {
+  if (current > target) {
+    return false;
+  }
+
   if (index == nums.size() - 1) {
     return current == target;
   }
 
   // Try addition
-  if (index + 1 < nums.size()) {
-    if (test(target, nums, index + 1, current + nums[index + 1])) {
-      return true;
-    }
+  if (test(target, nums, index + 1, current + nums[index + 1])) {
+    return true;
   }
 
   // Try multiplication
-  if (index + 1 < nums.size()) {
-    if (test(target, nums, index + 1, current * nums[index + 1])) {
-      return true;
-    }
+  if (test(target, nums, index + 1, current * nums[index + 1])) {
+    return true;
   }
 
   // Try concatenation
-  if (index + 1 < nums.size()) {
-    long next = current * pow(10, numDigits(nums[index + 1])) + nums[index + 1];
-    if (test(target, nums, index + 1, next)) {
-      return true;
-    }
+  long next = current * pow(10, numDigits(nums[index + 1])) + nums[index + 1];
+  if (test(target, nums, index + 1, next)) {
+    return true;
   }
 
   return false;
